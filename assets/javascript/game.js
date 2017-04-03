@@ -15,6 +15,8 @@ var screenStatus="";
 var guessedLettersDisplay="";
 var indexofGuessedLetters=1;
 var lettersCountGuessed=0;
+var numGuessesAllowed=10;
+var actualGuess=true;
 
 
 var randomWord=arrWords[Math.floor(Math.random() * arrWords.length)];
@@ -59,6 +61,8 @@ function ingestWord() {
 			// console.log(arrValidLetters.indexOf(playerLetter));
 			// console.log(playerLetter);
 			var isValidLetter=true;
+			var actualGuess=true;
+			console.log("checkInput executed, values: " + isValidLetter + " " + actualGuess);
 
 			
 			if(arrGuessedLetters.indexOf(playerLetter)==-1) {
@@ -85,16 +89,23 @@ function ingestWord() {
 			console.log("just set isWordLetter to true, Index Value: " + arrActiveWord.indexOf(playerLetter) + " " + playerLetter + " " + arrActiveWord);
 			if (newGuess) {
 			checkLetter();
+			console.log("Executed checkLetter, about to execute checkRemainingGuesses");
+			checkRemainingGuesses();
+			console.log("Executed checkRemainingGuesses");
+
 			console.log("checkInput if statement just executed checkLetter()");
 		}
-		
+
 			displayGuessedLetters();
+
 				}
+			
 		else if (arrGuessedLetters.indexOf(playerLetter)>-1) {
 			var isValidLetter=false;
 			console.log("CheckInput if: Already Guessed");
 			displayStatus();
 			displayGuessedLetters();
+
 				}
 		else	{
 			var isValidLetter=false;
@@ -102,6 +113,8 @@ function ingestWord() {
 			displayStatus();
 			displayGuessedLetters();
 				}
+
+
 
 	function checkLetter() {
 			if(isWordLetter) { 
@@ -113,6 +126,7 @@ function ingestWord() {
 				console.log(arrCorrectGuess.length);
 				
 			}
+
 			else {
 
 				console.log(playerLetter);
@@ -121,11 +135,22 @@ function ingestWord() {
 		}
 				displayStatus();
 				displayGuessedLetters();
+
+
 			}
 		}
 	}
 
-
+function checkRemainingGuesses() {
+	if ((isWordLetter==false) && (actualGuess==true)) {
+			numGuessesAllowed--;
+			console.log("Allowed Guesses set to " + numGuessesAllowed);
+			console.log("value of isWordLetter on CheckRemainingGuesses is " + isWordLetter);
+			}
+			else {
+				console.log("checkRemainingGuesses failed test " + isWordLetter + " " + actualGuess);
+			}
+}
 
 
 
@@ -166,11 +191,18 @@ function displayStatus() {
 	function checkSolved() {
 		console.log(arrCorrectGuess.length);
 		console.log(arrActiveWordNoDup.length);
+	
 
 		if(arrCorrectGuess.length==arrActiveWordNoDup.length) {
 					console.log("SOLVED!");
-				}
+					var puzzleSolved=true;
+					wins++;
+					console.log(puzzleSolved + " " + wins);
+					restartGame();
+				}		
 	}
+
+	
 	function displayGuessedLetters() {
 	var guessedLettersDisplay="";
 	for (k = 0; k < arrGuessedLetters.length; k++) {
@@ -182,6 +214,11 @@ function displayStatus() {
 		// console.log("displayGuessedLetters: Guessed Letters");
 		}
 	}
+function restartGame() {
+						var gameStatus=
+					"<h2> Congrats! You Got the word!</h2>";
+		document.querySelector("#roundstatus").innerHTML = gameStatus;
+					}
 
 
 function eliminateDuplicates(arr) {
@@ -191,9 +228,9 @@ var arrDuplicates = arrActiveWordNoDup.reduce(function(acc, el, i, arr) {
 }, []);
 
 console.log(arrDuplicates); 
-// $.inArray(arrDuplicates[0], arrActiveWordNoDup);
+
 for (n = 0; n < arrDuplicates.length; n++) {
-	// var wordDuplicate=arrActiveWordNoDup.indexOf(arrDuplicates[n]);
+
 		for (p = 0; p < arrActiveWordNoDup.length; p++) {
 			var wordDuplicate=arrActiveWordNoDup.indexOf(arrDuplicates[n]);
 			
@@ -222,27 +259,4 @@ for (m = 0; m < arrDuplicates.length; m++) {
 	arrDuplicates[m]=arrActiveWordNoDup.indexOf
 }
 }
-
-
-// var uniq = arrActiveWordNoDup
-// .map((arrActiveWordNoDup) => {
-//   return {count: 1, arrActiveWordNoDup: arrActiveWordNoDup}
-// })
-// .reduce((a, b) => {
-//   a[b.arrActiveWordNoDup] = (a[b.arrActiveWordNoDup] || 0) + b.count
-//   return a
-// }, {})
-
-// var duplicates = Object.keys(uniq).filter((a) => uniq[a] > 1);
-// console.log(duplicates.length);
-// console.log(duplicates);
-
-
-
-
-
-// }
-	
-
-// 	}
 
