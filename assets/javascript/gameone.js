@@ -2,23 +2,15 @@
 var wins=0;
 var losses=0;
 var guesses=0;
-// var playerLetter="+";
-var isValidLetter=false;
-var isWordLetter=null;
 var arrWords=["passport","ticket","border","tours","customs","luggage","airplane","trains","hotel","bellboy","rentalcar"];
 var arrValidLetters=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
 var arrGuessedLetters=[];
 var arrCorrectGuess=[];
 var arrActiveWord=[];
 var arrActiveWordNoDup=[]
-var screenStatus="";
-var guessedLettersDisplay="";
 var indexofGuessedLetters=1;
 var lettersCountGuessed=0;
 var numGuessesAllowed=10;
-var newGuess=false;
-// var actualGuess=true;
-
 
 var randomWord=arrWords[Math.floor(Math.random() * arrWords.length)];
 var currentWord=randomWord;
@@ -33,7 +25,35 @@ var screenHTML = "<h3>Press any key start playing!</h3>" +
       
 	
 
-function ingestWord() {
+// function ingestWord() {
+// 				for (i = 0; i < currentWord.length; i++) {
+// 					var currentLetter = currentWord.charAt(i);
+// 					arrActiveWord.push(currentLetter);
+// 					arrActiveWordNoDup.push(currentLetter);
+// 					console.log(currentLetter);
+// 					}
+// 				console.log(arrActiveWord);
+// 				eliminateDuplicates(arrActiveWordNoDup);
+// 				console.log("Revised: " + arrActiveWordNoDup.length); 
+// 				console.log("ingestWord: Completed");
+// 				displayStatus();
+// }
+
+
+	
+				// console.log(playerInput);
+				// console.log(playerLetter);
+				// checkInput();
+	       // var computerSelection = computerChoices[Math.floor(Math.random() * computerChoices.length)];       
+
+
+
+var hangmangame = {
+
+
+	
+
+	ingestWord: function() {
 				for (i = 0; i < currentWord.length; i++) {
 					var currentLetter = currentWord.charAt(i);
 					arrActiveWord.push(currentLetter);
@@ -41,23 +61,13 @@ function ingestWord() {
 					console.log(currentLetter);
 					}
 				console.log(arrActiveWord);
-				eliminateDuplicates(arrActiveWordNoDup);
+				hangmangame.eliminateDuplicates(arrActiveWordNoDup);
 				console.log("Revised: " + arrActiveWordNoDup.length); 
 				console.log("ingestWord: Completed");
 				displayStatus();
-}
+				}, //end of ingestWord
 
-	document.onkeyup = function(event) {
-
-				       var playerInput = event.key;
-				       var playerLetter = playerInput.toLowerCase();
-				// console.log(playerInput);
-				// console.log(playerLetter);
-				checkInput();
-	       // var computerSelection = computerChoices[Math.floor(Math.random() * computerChoices.length)];       
-
-
-	function checkInput() {
+	checkInput: function(playerLetter) {
 		if(arrValidLetters.indexOf(playerLetter)>-1) {
 			// console.log(arrValidLetters.indexOf(playerLetter));
 			// console.log(playerLetter);
@@ -69,7 +79,7 @@ function ingestWord() {
 			var isValidLetter=false;
 			console.log("CheckInput if: Not a Valid Letter");
 			displayStatus();
-			displayGuessedLetters();
+			hangmangame.displayGuessedLetters();
 				}
 			
 			if((arrGuessedLetters.indexOf(playerLetter)==-1) && (isValidLetter)) {
@@ -78,7 +88,7 @@ function ingestWord() {
 			arrGuessedLetters.push(playerLetter);
 			console.log("Just put  " + playerLetter  + "  in " + arrGuessedLetters);
 			// checkLetter();
-		}
+			}
 		else if(arrGuessedLetters.indexOf(playerLetter)>-1) {
 			var newGuess=false;
 			console.log("new guess is set to: "+ newGuess);
@@ -96,20 +106,23 @@ function ingestWord() {
 				else {
 						var isWordLetter=false;
 						console.log("Failure of playerLetter in arrActiveWord just set isWordLetter to " + isWordLetter);
-						checkLetter(isWordLetter);
-						checkRemainingGuesses(isWordLetter,newGuess);
+						hangmangame.checkLetter(this.isWordLetter);
+						hangmangame.checkRemainingGuesses();
 					}
+		
 			console.log("About to start another if, value of isWordLetter is " + isWordLetter);		
-			if ((isWordLetter) && (newGuess)) {
-			checkLetter(isWordLetter);
-			console.log("Executed checkLetter, about to execute checkRemainingGuesses");
-			console.log("Executed checkRemainingGuesses");
-			console.log("checkInput if statement just executed checkLetter()");
-			}
-					displayGuessedLetters();
-					}
+			
+		if ((isWordLetter) && (newGuess)) {
+		hangmangame.checkLetter(isWordLetter);
+		console.log("Executed checkLetter, about to execute checkRemainingGuesses");
+		console.log("Executed checkRemainingGuesses");
+		console.log("checkInput if statement just executed checkLetter()");
+		}
+		hangmangame.displayGuessedLetters();
+		}, //End of checkInput
 
-	function checkLetter(isWordLetter) {
+
+	checkLetter: function(isWordLetter) {
 			console.log("Starting checkLetter, value of isWordLetter is " + isWordLetter);
 			if (isWordLetter) { 
 				console.log(isWordLetter);
@@ -131,11 +144,11 @@ function ingestWord() {
 				displayGuessedLetters();
 
 
-			}
-		}
+			}, //End of checkLetter
+		
 	
 
-function checkRemainingGuesses(isWordLetter,newGuess) {
+ checkRemainingGuesses: function() {
 	console.log("In Function checkRemainingGuesses");
 	if ((isWordLetter==false) && (newGuess)) {
 			numGuessesAllowed--;
@@ -145,45 +158,45 @@ function checkRemainingGuesses(isWordLetter,newGuess) {
 			else {
 				console.log("checkRemainingGuesses failed test " + isWordLetter + " " + newGuess);
 			}
-}
+			}, //End of checkRemainingGuesses
 
 
 
 
-function displayStatus() {
-	var currentWordDisplay="";
-	for (i = 0; i < currentWord.length; i++) {
+// displayStatus: function() {
+// 	var currentWordDisplay="";
+// 	for (i = 0; i < currentWord.length; i++) {
 				
-				if (arrGuessedLetters.indexOf(arrActiveWord[i])>-1) {
-					// console.log("displayStatus: Letter was guessed correctly");
-					var currentWordDisplay=currentWordDisplay + " " +arrActiveWord[i];
-					// console.log(currentWordDisplay);
-				var screenStatus=
-				"<h2>" + currentWordDisplay + "</h2>";
-				document.querySelector("#wordStatus").innerHTML = screenStatus;
-				// console.log("displayStatus:Got to lower display Status-Correct Guess");
+// 				if (arrGuessedLetters.indexOf(arrActiveWord[i])>-1) {
+// 					// console.log("displayStatus: Letter was guessed correctly");
+// 					var currentWordDisplay=currentWordDisplay + " " +arrActiveWord[i];
+// 					// console.log(currentWordDisplay);
+// 				var screenStatus=
+// 				"<h2>" + currentWordDisplay + "</h2>";
+// 				document.querySelector("#wordStatus").innerHTML = screenStatus;
+// 				// console.log("displayStatus:Got to lower display Status-Correct Guess");
 			
 	
-				checkSolved();
-				}
+// 				hangmangame.checkSolved();
+// 				}
 				
-			else {
+// 			else {
 		
-				// console.log("displayStatus:Letter Not Guessed yet");
-				var currentWordDisplay=currentWordDisplay + " " + "_";
-				// console.log(currentWordDisplay);
-				var screenStatus=
-				"<h2>" + currentWordDisplay + "</h2>";
-				document.querySelector("#wordStatus").innerHTML = screenStatus;
-				// console.log("displayStatus:Got to lower display Status-Not Guessed");
+// 				// console.log("displayStatus:Letter Not Guessed yet");
+// 				var currentWordDisplay=currentWordDisplay + " " + "_";
+// 				// console.log(currentWordDisplay);
+// 				var screenStatus=
+// 				"<h2>" + currentWordDisplay + "</h2>";
+// 				document.querySelector("#wordStatus").innerHTML = screenStatus;
+// 				// console.log("displayStatus:Got to lower display Status-Not Guessed");
 				
-				}
+// 				}
 
-	}
+// 		} //End of displayStatus
 
 
-	}
-	function checkSolved() {
+	//  //Unknown CHECK SOURCE
+	checkSolved: function() {
 		console.log(arrCorrectGuess.length);
 		console.log(arrActiveWordNoDup.length);
 	
@@ -195,10 +208,10 @@ function displayStatus() {
 					console.log(puzzleSolved + " " + wins);
 					restartGame();
 				}		
-	}
+	},//End of checkSolved
 
 	
-	function displayGuessedLetters() {
+	displayGuessedLetters: function() {
 	var guessedLettersDisplay="";
 	for (k = 0; k < arrGuessedLetters.length; k++) {
 		var guessedLettersDisplay=guessedLettersDisplay + " " + arrGuessedLetters[k].toUpperCase();
@@ -208,19 +221,24 @@ function displayStatus() {
 		document.querySelector("#guessedStatus").innerHTML = guessedLettersStatus;
 		// console.log("displayGuessedLetters: Guessed Letters");
 		}
-	}
-function restartGame() {
+	}, //End of displayGuessedLetters
+
+restartGame: function() {
 						var gameStatus=
 					"<h2> Congrats! You Got the word!</h2>";
 		document.querySelector("#roundstatus").innerHTML = gameStatus;
-					}
+					}, //End of restartGame
 
 
-function eliminateDuplicates(arr) {
+
+eliminateDuplicates: function(arr) {
 
 var arrDuplicates = arrActiveWordNoDup.reduce(function(acc, el, i, arr) {
-  if (arr.indexOf(el) !== i && acc.indexOf(el) < 0) acc.push(el); return acc;
-}, []);
+  if (arr.indexOf(el) !== i && acc.indexOf(el) < 0) 
+  	acc.push(el); 
+  return acc;
+	}, 
+	[]);
 
 console.log(arrDuplicates); 
 
@@ -253,5 +271,49 @@ for (q = 0; q < arrDuplicates.length; q++) {
 for (m = 0; m < arrDuplicates.length; m++) {
 	arrDuplicates[m]=arrActiveWordNoDup.indexOf
 }
+}, //End of eliminateDuplicates
+}; //End of hangmangame definition
+
+function displayStatus() {
+	var currentWordDisplay="";
+	for (i = 0; i < currentWord.length; i++) {
+				
+				if (arrGuessedLetters.indexOf(arrActiveWord[i])>-1) {
+					// console.log("displayStatus: Letter was guessed correctly");
+					var currentWordDisplay=currentWordDisplay + " " +arrActiveWord[i];
+					// console.log(currentWordDisplay);
+				var screenStatus=
+				"<h2>" + currentWordDisplay + "</h2>";
+				document.querySelector("#wordStatus").innerHTML = screenStatus;
+				// console.log("displayStatus:Got to lower display Status-Correct Guess");
+			
+	
+				hangmangame.checkSolved();
+				}
+				
+			else {
+		
+				// console.log("displayStatus:Letter Not Guessed yet");
+				var currentWordDisplay=currentWordDisplay + " " + "_";
+				// console.log(currentWordDisplay);
+				var screenStatus=
+				"<h2>" + currentWordDisplay + "</h2>";
+				document.querySelector("#wordStatus").innerHTML = screenStatus;
+				// console.log("displayStatus:Got to lower display Status-Not Guessed");
+				
+				}
+
+		} //End of displayStatus
+
+
+hangmangame.ingestWord();
+	displayStatus();
+document.onkeyup = function(event) {
+
+				       var playerInput = event.key;
+				       var playerLetter = playerInput.toLowerCase();
+
+   hangmangame.checkInput(playerLetter);
+}  
 }
 
