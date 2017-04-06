@@ -5,7 +5,7 @@ var guesses=0;
 // var playerLetter="+";
 var isValidLetter=false;
 var isWordLetter=null;
-var arrWords=["passport","ticket","border","tours","customs","luggage","airplane","trains","hotel","bellboy","rentalcar"];
+var arrWords=["passport","ticket","border","tours","customs","luggage","airplane","trains","hotel","bellboy","beach"];
 var arrValidLetters=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
 var arrGuessedLetters=[];
 var arrCorrectGuess=[];
@@ -261,19 +261,27 @@ function restartGame(gameWin) {
 						var gameStatus=
 					"<h2> Congrats! You Got the word!</h2>" +
 					"<h2> Press any key to keep playing!</h2";
+
+						var winningImage=
+						"<img src='assets/images/" + currentWord + ".jpg' alt="+ currentWord +">";	
 					}
 					else {
-						var gameStatus=
-					"<h2> Sorry, you ran out of guesses and lost. Try again!</h2>"+
-					"<h2> Press any key to keep playing!</h2";
+						var gameStatus="<h2>Oops...you ran out of guesses!</h2>";
+					
+						var winningImage=
+						"<h2 class='loseLanguage'> Sorry, you ran out of guesses and lost. Try again!</h2>"+
+					"<h2 class='loseLanguage'> Press any key to keep playing!</h2";
 					}
 			document.querySelector("#roundstatus").innerHTML = gameStatus;
+			document.querySelector("#resultpicture").innerHTML = winningImage;
 
 			document.onkeyup = function(event) {
 	
 				       var playanotherround = event.key;
 				       	var gameStatus="";
+				       	var winningImage="";
 				document.querySelector("#roundstatus").innerHTML = gameStatus;
+				document.querySelector("#resultpicture").innerHTML = winningImage;
 			reInitializeGame();
 				}
 			}

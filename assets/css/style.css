@@ -1,0 +1,75 @@
+body {
+	background:ivory;
+background-image:url("../images/paristravel.jpg");
+background-repeat:no-repeat;
+
+}
+
+img {
+    width: 100%;
+    object-fit:contain;
+}
+
+
+.maingame {
+	font-family: 'Istok Web', helvetica, arial, sans-serif;
+	text-align:center;
+	color:orange;
+	font-weight:bold;
+	background:grey;
+	width:90%;
+	padding:40px;
+	opacity: .85;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+
+}
+
+.welcomeinstructions {
+	text-align:center;
+	color:blue;
+	font-family: 'Biryani', sans-serif;
+	font-weight:600;
+}
+
+#welcometext {
+	font-size:300%;
+	text-align:center;
+	font-family: 'Biryani', sans-serif;
+	font-weight:800;
+
+}
+
+/*/*#resultpicture {
+	width: 100%;
+    object-fit:contain;*/
+/*	background:grey;*/
+/*	-moz-border-radius: 15px;
+	border-radius: 15px;
+	width: 100%;  or any custom size 
+    height: 100%; 
+    font-family: 'Istok Web', helvetica, arial, sans-serif;
+	text-align:center;
+	color:red;
+	font-weight:bold;
+	padding:40px;*/
+	
+/*}**//*/*/
+.loseLanguage {
+	color:white;
+	font-weight:700;
+	font-size:400%;
+}
+
+/*#loseLanguageBox {
+	width: 100%;
+    object-fit:contain;
+	background:lightgrey;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+    font-family: 'Istok Web', helvetica, arial, sans-serif;
+	text-align:center;
+	color:red;
+	font-weight:bold;
+	padding:40px;
+}*/
